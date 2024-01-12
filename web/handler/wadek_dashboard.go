@@ -15,6 +15,8 @@ import (
 	"sync"
 	"time"
 
+	_ "github.com/joho/godotenv/autoload"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"github.com/zeebo/blake3"
@@ -141,8 +143,8 @@ func (h *wadekDashboardHandler) Update(c *gin.Context) {
 	Wakil Dekan Bidang Akademik (%v)
 
 	Pranala Dokumen :
-	https://skripsi.com/dokumen/%v
-	`, documentLegalization.ApprovedByKaryawanAkademikAt.Format("01/02/2006"), documentLegalization.ApprovedByKaprodiAt.Format("01/02/2006"), documentLegalization.SignedByWadekAt.Format("01/02/2006"), documentLegalization.UUID)
+	%v/dokumen/%v
+	`, documentLegalization.ApprovedByKaryawanAkademikAt.Format("01/02/2006"), documentLegalization.ApprovedByKaprodiAt.Format("01/02/2006"), documentLegalization.SignedByWadekAt.Format("01/02/2006"), os.Getenv("BASE_URL_SERVER"), documentLegalization.UUID)
 
 	wg.Add(1)
 	go func() {

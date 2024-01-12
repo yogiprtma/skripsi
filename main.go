@@ -100,7 +100,7 @@ func main() {
 	router.POST("/admin/perihal/delete/:id", authAdminMiddleware(), adminPerihalHandler.Delete)
 
 	router.POST("admin/pegawai", authAdminMiddleware(), adminPegawaiHandler.Create)
-	router.GET("/admin/pegawai/new", adminPegawaiHandler.New)
+	router.GET("/admin/pegawai/new", authAdminMiddleware(), adminPegawaiHandler.New)
 	router.GET("/admin/pegawai", authAdminMiddleware(), adminPegawaiHandler.Index)
 	router.GET("/admin/pegawai/edit/:id", authAdminMiddleware(), adminPegawaiHandler.Edit)
 	router.POST("/admin/pegawai/update/:id", authAdminMiddleware(), adminPegawaiHandler.Update)

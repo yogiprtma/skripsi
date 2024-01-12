@@ -1,0 +1,38 @@
+{{ define "sidebar" }}
+    {{ template "admin_sidebar" }}
+{{ end }}
+
+{{ define "content" }}
+    <div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="h3 mb-4 text-gray-800">
+        <h1 class="h3 mb-0 text-gray-800">Tambah Perihal Legalisasi Transkrip</h1>
+    </div>
+
+    <div class="card shadow col-xl-8 col-lg-7 mx-auto">
+        <div class="card-body">
+        <form action="/admin/perihal" method="POST">
+            <div class="form-group">
+                <label for="name">Perihal</label>
+                <input type="text" class="form-control" name="name" placeholder="Masukkan Perihal">
+                {{ if .Error.Name }}
+                    <small class="text-danger mt-1"><i class="fas fa-exclamation-circle"></i> {{ .Error.Name }}</small>
+                {{ end }}
+            </div>
+            <div class="row mt-4 mb-2 justify-content-between">
+                <div class="col-lg-5">
+                    <button type="submit" class="btn btn-primary btn-block">Tambah Perihal</button>
+                </div>
+                <div class="col-lg-5">
+                    <a href="/admin/perihal" class="btn btn-success btn-block">
+                        Kembali
+                    </a>
+                </div>  
+            </div>      
+        </form>
+        </div>
+    </div>
+
+    </div>
+{{ end }}

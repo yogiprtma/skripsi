@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>TEST - LOGIN</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="/css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body class="bg-gradient-primary">
+  <div class="container">
+
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+        <div class="col-xl-12 col-lg-12 col-md-12">
+
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                          <div class="border border-primary gap-100 p-3">   
+                            <div class="row">
+                              <div class="col-lg-8 align-items-center" style="text-align: center;">
+                                <embed src="/file-signed/{{ .DocumentLegalization.FileNameDocument }}" type="application/pdf" width="100%" height="100%">
+                              </div>
+                            <div class="col-lg-4">
+                              <header class="section-header mt-3">
+                                <h4>Informasi Dokumen</h4>
+                              </header>
+                              <form method="POST" action="#">
+                                  <div class="p-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                      <h5></i>Identitas Mahasiswa</h5>      
+                                    </div>	    
+                                    <div class="col">
+                                      <input type="text" class="form-control" value="{{ .DocumentLegalization.User.Name }} ({{ .DocumentLegalization.User.NPM }})" disabled>
+                                    </div>	
+                                  </div>
+                                  <div class="p-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                      <h5></i>Perihal Pengajuan</h5>      
+                                    </div>
+                                    <div class="col">
+                                      <input type="text" class="form-control" value="{{ .DocumentLegalization.Subject.Name }}" disabled>
+                                    </div>    
+                                  </div>
+                                  <div class="p-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                      <h5></i>Disetujui Oleh</h5>      
+                                    </div>	    
+                                    <div class="col">
+                                      <input type="text" class="form-control" value="1. Karyawan Akademik ({{ .DocumentLegalization.ApprovedByKaryawanAkademikAtString }})" disabled>
+                                      <input type="text" class="form-control" value="2. Koordinator Prodi {{ .DocumentLegalization.User.Department }} ({{ .DocumentLegalization.ApprovedByKaprodiAtString }})" disabled>
+                                    </div>	
+                                  </div>
+                                  <div class="p-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                      <h5></i>Ditandatangani Oleh</h5>      
+                                    </div>	    
+                                    <div class="col">
+                                      <input type="text" class="form-control text-center" value="Wakil Dekan Bidang Akademik" disabled>
+                                      <input type="text" class="form-control text-center" value="{{ .DocumentLegalization.SignedByWadekAtString }}" disabled>
+                                    </div>	
+                                  </div>
+                                  <div class="p-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                      <h5></i>Nilai Tanda Tangan</h5>      
+                                    </div>	    
+                                    <div class="col">
+                                      <textarea class="form-control" rows="6" name="reason_for_rejected" disabled>{{ .DocumentLegalization.Signature }}</textarea>
+                                    </div>	
+                                  </div>
+                                  <div class="p-3">
+                                    <div class="d-flex align-items-center mb-2">
+                                      <h5></i>Status Dokumen</h5>     
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" style="color:green;text-align: center;font-size:25px;" value="{{ .IsExpired }}" disabled>
+                                    </div>
+                                  </div>
+                                    <div class="p-3 row mt-4 mb-2 justify-content-between">
+                                      <div class="col-lg-6">
+                                          <a href="/file-signed/{{ .DocumentLegalization.FileNameDocument }}" class="btn btn-primary" download="">
+                                            Unduh
+                                          </a>
+                                      </div>
+                                      <div class="col-lg-6">
+                                          <a href="/dokumen/cek-dokumen" class="btn btn-success btn-block">
+                                              Kembali
+                                          </a>
+                                      </div>  
+                                    </div>  
+                                </div> 
+                                </form>
+                              </div></div></div>    
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+  </div>
+
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/js/sb-admin-2.min.js"></script>
+
+</body>
+
+</html>

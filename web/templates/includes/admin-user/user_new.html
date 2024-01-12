@@ -1,0 +1,68 @@
+{{ define "sidebar" }}
+    {{ template "admin_sidebar" }}
+{{ end }}
+
+{{ define "content" }}
+    <div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="h3 mb-4 text-gray-800">
+        <h1 class="h3 mb-0 text-gray-800">Tambah Akun Mahasiswa</h1>
+    </div>
+
+    
+
+    <div class="card shadow col-xl-8 col-lg-7 mx-auto">
+        <div class="card-body">
+        <form action="/admin/akun" method="POST">
+            <div class="form-group">
+                <label for="nama">Nama</label>
+                <input type="text" class="form-control" name="name" placeholder="Masukkan Nama" value="{{ .Name }}">
+                {{ if .Error.Name }}
+                    <small class="text-danger mt-1"><i class="fas fa-exclamation-circle"></i> {{ .Error.Name }}</small>
+                {{ end }}
+            </div> 
+            <div class="form-group">
+                <label for="npm">NPM</label>
+                <input type="text" class="form-control" name="npm" placeholder="Masukkan NPM" value="{{ .NPM }}">
+                {{ if .Error.NPM }}
+                    <small class="text-danger mt-1"><i class="fas fa-exclamation-circle"></i> {{ .Error.NPM }}</small>
+                {{ end }}
+            </div>
+            <div class="form-group">
+                <label for="department">Program Studi</label>
+                <select id="department" name="department" class="form-control">
+                    <option value="Informatika">Informatika</option>
+                    <option value="Teknik Mesin">Teknik Mesin</option>
+                    <option value="Teknik Sipil">Teknik Sipil</option>
+                    <option value="Teknik Elektro">Teknik Elektro</option>
+                    <option value="Arsitektur">Arsitektur</option>
+                    <option value="Sistem Informasi">Sistem Informasi</option>
+                </select>
+                {{ if .Error.Department }}
+                    <small class="text-danger mt-1"><i class="fas fa-exclamation-circle"></i> {{ .Error.Department }}</small>
+                {{ end }}
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Masukkan Password">
+                {{ if .Error.Password }}
+                    <small class="text-danger mt-1"><i class="fas fa-exclamation-circle"></i> {{ .Error.Password }}</small>
+                {{ end }}
+            </div>       
+            <div class="row mt-4 mb-2 justify-content-between">
+                <div class="col-lg-5">
+                    <button type="submit" class="btn btn-primary btn-block">Tambah Akun</button>
+                </div>
+                <div class="col-lg-5">
+                    <a href="/admin/akun" class="btn btn-success btn-block">
+                        Kembali
+                    </a>
+                </div>  
+            </div>    
+        </form>
+        </div>
+    </div>
+
+    </div>
+{{ end }}

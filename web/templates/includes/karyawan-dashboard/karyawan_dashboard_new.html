@@ -1,0 +1,47 @@
+{{ define "sidebar" }}
+    {{ template "karyawan_akademik_sidebar" }}
+{{ end }}
+
+{{ define "content" }}
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="h3 mb-4 text-gray-800">
+            <h1 class="h3 mb-0 text-gray-800">Pengajuan Legalisasi Dokumen Transkrip Nilai</h1>
+        </div>
+
+        <div class="card shadow col-xl-6 col-lg-8 mx-auto">
+            <div class="card-body">
+                <form action="/karyawan/dashboard/update/{{ .ID }}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="nama">Nama</label>
+                        <input type="text" class="form-control" name="name" value="{{ .NameUser }}" disabled>
+                    </div> 
+                    <div class="form-group">
+                        <label for="npm">NPM</label>
+                        <input type="text" class="form-control" name="npm" value="{{ .NpmUser }}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="perihal">Perihal Legalisasi</label>
+                        <input type="text" class="form-control" name="perihal" value="{{ .NameSubject }}" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="file_transkrip">Masukkan Dokumen Transkrip Nilai</label>
+                        <input type="file" class="form-control" name="file_transkrip" required>
+                    </div>
+                    <div class="row mt-4 mb-2 justify-content-between">
+                        <div class="col-lg-5">
+                            <button type="submit" class="btn btn-danger btn-block">Setujui</button>
+                        </div>
+                        <div class="col-lg-5">
+                            <a href="/karyawan/dashboard" class="btn btn-primary btn-block">
+                                Kembali
+                            </a>
+                        </div>
+                    </div>  
+                </form>
+            </div>
+        </div>
+
+    </div>
+{{ end }}

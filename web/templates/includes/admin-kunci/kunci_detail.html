@@ -1,0 +1,42 @@
+{{ define "sidebar" }}
+    {{ template "admin_sidebar" }}
+{{ end }}
+
+{{ define "content" }}
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="h3 mb-4 text-gray-800">
+            <h1 class="h3 mb-0 text-gray-800">Kunci RSA {{ .NPM }}</h1>
+        </div>
+
+        <div class="card shadow col-xl-12 col-lg-8 mx-auto">
+            <div class="card-body">
+                <div class="form-group row mt-3">
+                    <label for="nama" class="col-sm-2 col-form-label">Kunci Publik</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="12" disabled>{{ .PublicKey }}</textarea>
+                    </div>
+                </div>
+                <div class="form-group row mt-5">
+                    <label for="nama" class="col-sm-2 col-form-label">Kunci Privat</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="10" disabled>{{ .PrivateKey }}</textarea>
+                    </div>
+                </div>
+
+                <div class="row mt-5 mb-2">
+                    <div class="col-lg-8">
+
+                    </div>
+                    <div class="col-lg-4">
+                        <a href="/admin/kunci" class="btn btn-primary btn-block">
+                            Kembali
+                        </a>
+                    </div>
+                </div>  
+            </div>
+        </div>
+
+    </div>
+{{ end }}

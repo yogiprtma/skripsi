@@ -1,0 +1,59 @@
+{{ define "sidebar" }}
+    {{ template "admin_sidebar" }}
+{{ end }}
+
+{{ define "content" }}
+    <div class="container-fluid">
+
+         <!-- Page Heading -->
+         <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-4 text-gray-800">Dokumen Transkrip Nilai Mahasiswa</h1>
+        </div> 
+        
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary text-center">Dokumen Transkrip Nilai Mahasiswa Yang Telah Ditandatangani</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Mahasiswa</th>
+                                <th>Perihal</th>
+                                <th>Ditandatangani Pada</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ range .documentLegalizations }}
+                            <tr>
+                                <td>{{ .No }}</td>
+                                <td>{{ .User.Name }} ({{ .User.NPM }})</td>
+                                <td>{{ .Subject.Name }}</td>
+                                <td>{{ .SignedByWadekAtString }}</td>
+                                <td>
+                                    <a href="/admin/dokumen/{{ .ID }}" class="btn btn-info">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="/file-signed/{{ .FileNameDocument }}" class="btn btn-secondary" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {{ else }}
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                Data Kosong
+                                </td>
+                            </tr>
+                            {{ end }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{{ end }}

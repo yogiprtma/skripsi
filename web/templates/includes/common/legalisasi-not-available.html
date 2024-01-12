@@ -1,0 +1,26 @@
+{{ define "sidebar" }}
+    {{ template "user_sidebar" }}
+{{ end }}
+
+{{ define "content" }}
+    <div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="h3 mb-4 text-gray-800">
+        <h1 class="h3 mb-0 text-gray-800">Pengajuan Legalisasi Transkrip</h1>
+    </div>
+
+    
+    <div class="card shadow col-lg-5 mx-auto">
+        <div class="card-body">
+            <img class="mx-auto d-block" src="/img/document.png" alt="Document has been process" width="350">
+            <h5 class="text-center mt-2">Pengajuan legalisasi transkrip nilai anda sedang diproses.<br>Harap tunggu dan cek email secara berkala!</h5>
+            <div class="row mt-4 mb-2 justify-content-between">
+                <a href="/dashboard" class="btn btn-primary btn-block">
+                    Kembali ke Dashboard
+                </a>
+            </div>  
+        </div>
+    </div>
+    </div>
+{{ end }}

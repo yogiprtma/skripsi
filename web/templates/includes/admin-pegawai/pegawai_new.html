@@ -1,0 +1,70 @@
+{{ define "sidebar" }}
+    {{ template "admin_sidebar" }}
+{{ end }}
+
+{{ define "content" }}
+    <div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="h3 mb-4 text-gray-800">
+        <h1 class="h3 mb-0 text-gray-800">Tambah Akun Pegawai</h1>
+    </div>
+
+    <div class="card shadow col-xl-8 col-lg-7 mx-auto">
+        <div class="card-body">
+        <form action="/admin/pegawai" method="POST">
+            <div class="form-group">
+                <label for="nama">Nama Pegawai</label>
+                <input type="text" class="form-control" name="name" placeholder="Masukkan Nama Pegawai" value="{{ .Name }}">
+                {{ if .Error.Name }}
+                    <small class="text-danger mt-1"><i class="fas fa-exclamation-circle"></i> {{ .Error.Name }}</small>
+                {{ end }}
+            </div> 
+            <div class="form-group">
+                <label for="nip">NIP</label>
+                <input type="text" class="form-control" name="nip" placeholder="Masukkan NIP" value="{{ .NIP }}">
+                {{ if .Error.NIP }}
+                    <small class="text-danger mt-1"><i class="fas fa-exclamation-circle"></i> {{ .Error.NIP }}</small>
+                {{ end }}
+            </div>
+            <div class="form-group">
+                <label for="role">Jabatan</label>
+                <select id="role" name="role" class="form-control">
+                    <option value="Wakil Dekan Bidang Akademik">Wakil Dekan Bidang Akademik</option>
+                    <option value="Koordinator Prodi Informatika">Koordinator Prodi Informatika</option>
+                    <option value="Koordinator Prodi Teknik Sipil">Koordinator Prodi Teknik Sipil</option>
+                    <option value="Koordinator Prodi Teknik Elektro">Koordinator Prodi Teknik Elektro</option>
+                    <option value="Koordinator Prodi Teknik Mesin">Koordinator Prodi Teknik Mesin</option>
+                    <option value="Koordinator Prodi Arsitektur">Koordinator Prodi Arsitektur</option>
+                    <option value="Koordinator Prodi Sistem Informasi">Koordinator Prodi Sistem Informasi</option>
+                    <option value="Karyawan Akademik Bagian Informatika dan Sistem Informasi">Karyawan Akademik Bagian Informatika dan Sistem Informasi</option>
+                    <option value="Karyawan Akademik Bagian Teknik Sipil dan Arsitektur">Karyawan Akademik Bagian Teknik Sipil dan Arsitektur</option>
+                    <option value="Karyawan Akademik Bagian Teknik Mesin dan Teknik Elektro">Karyawan Akademik Bagian Teknik Mesin dan Teknik Elektro</option>
+                </select>
+                {{ if .Error.Role }}
+                    <small class="text-danger mt-1"><i class="fas fa-exclamation-circle"></i> {{ .Error.Role }}</small>
+                {{ end }}
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" name="password" placeholder="Masukkan Password">
+                {{ if .Error.Password }}
+                    <small class="text-danger mt-1"><i class="fas fa-exclamation-circle"></i> {{ .Error.Password }}</small>
+                {{ end }}
+            </div>       
+            <div class="row mt-4 mb-2 justify-content-between">
+                <div class="col-lg-5">
+                    <button type="submit" class="btn btn-primary btn-block">Tambah Akun</button>
+                </div>
+                <div class="col-lg-5">
+                    <a href="/admin/pegawai" class="btn btn-success btn-block">
+                        Kembali
+                    </a>
+                </div>  
+            </div>    
+        </form>
+        </div>
+    </div>
+
+    </div>
+{{ end }}

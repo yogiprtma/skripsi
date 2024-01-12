@@ -1,0 +1,60 @@
+{{ define "sidebar" }}
+    {{ template "user_sidebar" }}
+{{ end }}
+
+{{ define "content" }}
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+        {{ if .Ok }}
+            <p class="mb-4">Halo, <b>{{ .name }} ({{ .npm }})</b>. Saat ini pengajuan legalisasi transkrip nilai anda sedang diproses, harap tunggu dan cek email secara berkala.</p>
+        {{ else }}
+            <p class="mb-4">Halo, <b>{{ .name }} ({{ .npm }})</b>. Untuk mengajukan legalisasi dokumen transkrip nilai silahkan ajukan <a href="/pengajuan-legalisasi">disini</a> atau klik pada pilihan Legalisasi Transkrip di menu Dashboard.</p>
+        {{ end }}
+        
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary text-center">Riwayat Pengajuan Legalisasi Dokumen Transkrip</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Perihal</th>
+                                <th>Tgl. Pembuatan</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ range .documentLegalizations }}
+                            <tr>
+                                <td>{{ .No }}</td>
+                                <td>{{ .Subject.Name }}</td>
+                                <td>{{ .UpdatedAtString }}</td>
+                                <td>
+                                    <a href="/dashboard/detail/{{ .ID }}" class="btn btn-info">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <a href="/file-signed/{{ .FileNameDocument }}" class="btn btn-secondary" download>
+                                        <i class="fas fa-download"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {{ else }}
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                Data Kosong
+                                </td>
+                            </tr>
+                            {{ end }}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{{ end }}

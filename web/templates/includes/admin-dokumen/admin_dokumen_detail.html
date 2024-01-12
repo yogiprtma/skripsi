@@ -1,0 +1,85 @@
+{{ define "sidebar" }}
+    {{ template "admin_sidebar" }}
+{{ end }}
+
+{{ define "content" }}
+    <div class="container" data-aos="fade-in">
+        <!-- Page Heading -->
+        <div class="h3 mb-4 text-gray-800">
+            <h1 class="h3 mb-0 text-gray-800">Informasi Dokumen Transkrip Nilai</h1>
+        </div>
+      <div class="border border-primary gap-100 p-3">   
+        <div class="row">
+          <div class="col-lg-8 align-items-center" style="text-align: center;">
+            <embed src="/file-signed/{{ .FileNameDocument }}" type="application/pdf" width="100%" height="100%">
+          </div>
+        <div class="col-lg-4">
+          <header class="section-header mt-3">
+            <h4>Informasi Dokumen</h4>
+          </header>
+          <form method="POST" action="/wadek/dashboard/update/{{ .ID }}">
+              <div class="p-3">
+                <div class="d-flex align-items-center mb-2">
+                  <h5></i>Identitas Mahasiswa</h5>      
+                </div>	    
+                <div class="col">
+                  <input type="text" class="form-control" id="namafile" name="namafile" value="{{ .User.Name }} ({{ .User.NPM }})" disabled>
+                </div>	
+              </div>
+              <div class="p-3">
+                <div class="d-flex align-items-center mb-2">
+                  <h5></i>Perihal Pengajuan</h5>      
+                </div>	    
+                <div class="col">
+                  <input type="text" class="form-control" id="namafile" name="namafile" value="{{ .Subject.Name }}" disabled>
+                </div>	
+              </div>
+              <div class="p-3">
+                <div class="d-flex align-items-center mb-2">
+                  <h5></i>Disetujui Oleh</h5>      
+                </div>	    
+                <div class="col">
+                  <input type="text" class="form-control" value="1. Karyawan Akademik ({{ .ApprovedByKaryawanAkademikAtString }})" disabled>
+                  <input type="text" class="form-control" value="2. Koordinator Prodi {{ .User.Department }} ({{ .ApprovedByKaprodiAtString }})" disabled>
+                </div>	
+              </div>
+              <div class="p-3">
+                <div class="d-flex align-items-center mb-2">
+                  <h5></i>Ditandatangani Oleh</h5>      
+                </div>	    
+                <div class="col">
+                  <input type="text" class="form-control text-center" value="Wakil Dekan Bidang Akademik" disabled>
+                  <input type="text" class="form-control text-center" value="{{ .SignedByWadekAtString }}" disabled>
+                </div>	
+              </div>
+              <div class="p-3">
+                <div class="d-flex align-items-center mb-2">
+                  <h5></i>Nilai Tanda Tangan</h5>      
+                </div>	    
+                <div class="col">
+                  <textarea class="form-control" rows="6" name="reason_for_rejected" disabled>{{ .Signature }}</textarea>
+                </div>	
+              </div>
+              <div class="p-3">
+                <div class="d-flex align-items-center mb-2">
+                  <h5></i>Status Dokumen</h5>      
+                </div>
+                <div class="col">
+                  <input type="text" class="form-control" style="color:green;text-align: center;font-size:25px;" value="VALID" disabled>
+                </div>
+              </div>
+              <div class="p-3 row mt-4 mb-2 justify-content-between">
+                <div class="col-lg-6">
+                    <a href="/file-signed/{{ .FileNameDocument }}" class="btn btn-primary" download="">
+                      Unduh
+                    </a>
+                </div>
+                <div class="col-lg-6">
+                    <a href="/admin/dokumen" class="btn btn-success btn-block">
+                        Kembali
+                    </a>
+                </div>  
+            </div> 
+            </form>
+          </div></div></div>      
+{{ end }}

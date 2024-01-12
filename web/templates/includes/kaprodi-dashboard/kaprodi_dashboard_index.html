@@ -1,0 +1,92 @@
+{{ define "sidebar" }}
+    {{ template "kaprodi_sidebar" }}
+{{ end }}
+
+{{ define "content" }}
+    <!-- Page Heading -->
+    <h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+    <p class="mb-4">Halo, <b>{{ .name }}</b>. Saat ini terdapat  <span class="badge badge-danger">{{ .total }}</span> pengajuan legalisasi dokumen transkrip nilai yang dapat diproses.</p>
+    
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary text-center">Pengajuan Legalisasi Dokumen Transkrip Nilai</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>NPM</th>
+                            <th>Nama</th>
+                            <th>Perihal</th>
+                            <th>Tgl. Pengajuan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{ range .documentLegalizations }}
+                            <tr>
+                                <td>{{ .No }}</td>
+                                <td>{{ .User.NPM }}</td>
+                                <td>{{ .User.Name }}</td>
+                                <td>{{ .Subject.Name }}</td>
+                                <td>{{ .CreatedAtString }}</td>
+                                <td>
+                                    <a href="/koordinator-prodi/dashboard/detail/{{ .ID }}" class="btn btn-info">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+                                    <form action="/koordinator-prodi/dashboard/update/{{ .ID }}" method="POST" class="d-inline">
+                                        <button onclick="return confirm('Anda yakin ingin menyetujui pengajuan dokumen tersebut?');" class="btn btn-primary">
+                                            <i class="fa fa-arrow-alt-circle-right" style="font-weight: normal;"> Setujui</i>
+                                        </button>
+                                    </form>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ModalForReject">
+                                        <i class="fa fa-trash-alt fa-sm" style="font-weight: normal;"> Tolak</i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- Modal HTML Markup -->
+                            <div id="ModalForReject" class="modal fade">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Tolak Pengajuan Legalisasi Transkrip</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form role="form" action="/koordinator-prodi/update" method="POST">
+                                                <div class="form-group">
+                                                    <label class="control-label">Masukkan Alasan :</label>
+                                                    <div>
+                                                        <textarea class="form-control" rows="8" name="reason_for_rejected" required></textarea>
+                                                    </div>
+                                                    <input type="hidden" name="id" value="{{ .ID }}">
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <div>
+                                                        <button type="submit" class="btn btn-primary">
+                                                            Submit
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+                        {{ else }} 
+                            <tr>
+                                <td colspan="7" class="text-center">
+                                Data Kosong
+                                </td>
+                            </tr>
+                        {{ end }}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+{{ end }}

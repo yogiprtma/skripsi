@@ -17,12 +17,12 @@ type Repository interface {
 	UpdateSignature(ID int, fileNameDocument, signature string) (DocumentLegalization, error)
 	FindByMessageDigest(msgDigest string) (DocumentLegalization, error)
 	FindForKaryawan(usersID []int) ([]DocumentLegalization, error)
-	UpdateStatusToApprovedByKaryawan(ID int, fileNameDocument, uuid string, approvedAt time.Time) (DocumentLegalization, error)
+	UpdateStatusToApprovedByKaryawan(ID int, fileNameDocument, uuid string, approvedAt string) (DocumentLegalization, error)
 	UpdateStatusToRejected(ID int) (DocumentLegalization, error)
 	FindForKaprodi(usersID []int) ([]DocumentLegalization, error)
-	UpdateStatusToApprovedByKaprodi(ID int, approvedAt time.Time) (DocumentLegalization, error)
+	UpdateStatusToApprovedByKaprodi(ID int, approvedAt string) (DocumentLegalization, error)
 	FindForWadek() ([]DocumentLegalization, error)
-	UpdateStatusToSignedByWadek(ID int, msgDigest, signature string, signedAt, expiredAt time.Time) (DocumentLegalization, error)
+	UpdateStatusToSignedByWadek(ID int, msgDigest, signature string, signedAt string, expiredAt time.Time) (DocumentLegalization, error)
 	FindByUUID(UUID string) (DocumentLegalization, error)
 }
 
@@ -130,9 +130,9 @@ func (r *repository) FindForKaryawan(usersID []int) ([]DocumentLegalization, err
 	return documentLegalizations, nil
 }
 
-func (r *repository) UpdateStatusToApprovedByKaryawan(ID int, fileNameDocument, uuid string, approvedAt time.Time) (DocumentLegalization, error) {
+func (r *repository) UpdateStatusToApprovedByKaryawan(ID int, fileNameDocument, uuid string, approvedAt string) (DocumentLegalization, error) {
 	var documentLegalization DocumentLegalization
-	err := r.db.Model(&documentLegalization).Where("id = ?", ID).Updates(DocumentLegalization{FileNameDocument: fileNameDocument, Status: "APPROVED_BY_KARYAWAN", UUID: uuid, ApprovedByKaryawanAkademikAt: approvedAt}).Error
+	err := r.db.Model(&documentLegalization).Where("id = ?", ID).Updates(DocumentLegalization{FileNameDocument: fileNameDocument, Status: "APPROVED_BY_KARYAWAN", UUID: uuid, ApprovedByKaryawanAkademik: approvedAt}).Error
 	if err != nil {
 		return documentLegalization, err
 	}
@@ -161,9 +161,9 @@ func (r *repository) FindForKaprodi(usersID []int) ([]DocumentLegalization, erro
 	return documentLegalizations, nil
 }
 
-func (r *repository) UpdateStatusToApprovedByKaprodi(ID int, approvedAt time.Time) (DocumentLegalization, error) {
+func (r *repository) UpdateStatusToApprovedByKaprodi(ID int, approvedAt string) (DocumentLegalization, error) {
 	var documentLegalization DocumentLegalization
-	err := r.db.Model(&documentLegalization).Where("id = ?", ID).Updates(DocumentLegalization{Status: "APPROVED_BY_KAPRODI", ApprovedByKaprodiAt: approvedAt}).Error
+	err := r.db.Model(&documentLegalization).Where("id = ?", ID).Updates(DocumentLegalization{Status: "APPROVED_BY_KAPRODI", ApprovedByKaprodi: approvedAt}).Error
 	if err != nil {
 		return documentLegalization, err
 	}
@@ -182,9 +182,9 @@ func (r *repository) FindForWadek() ([]DocumentLegalization, error) {
 	return documentLegalizations, nil
 }
 
-func (r *repository) UpdateStatusToSignedByWadek(ID int, msgDigest, signature string, signedAt, expiredAt time.Time) (DocumentLegalization, error) {
+func (r *repository) UpdateStatusToSignedByWadek(ID int, msgDigest, signature string, signedAt string, expiredAt time.Time) (DocumentLegalization, error) {
 	var documentLegalization DocumentLegalization
-	err := r.db.Model(&documentLegalization).Where("id = ?", ID).Updates(DocumentLegalization{Status: "SIGNED", MessageDigest: msgDigest, Signature: signature, SignedByWadekAt: signedAt, ExpiredAt: expiredAt}).Error
+	err := r.db.Model(&documentLegalization).Where("id = ?", ID).Updates(DocumentLegalization{Status: "SIGNED", MessageDigest: msgDigest, Signature: signature, SignedByWadek: signedAt, ExpiredAt: expiredAt}).Error
 	if err != nil {
 		return documentLegalization, err
 	}

@@ -1,10 +1,12 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 	"project-skripsi/document_legalization"
 	"project-skripsi/helper"
 	"strconv"
+	"time"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -153,11 +155,23 @@ func (h *kaprodiDashboardHandler) Reject(c *gin.Context) {
 }
 
 func (h *kaprodiDashboardHandler) Update(c *gin.Context) {
+	var input document_legalization.FormUpdateDocToApprovedByKaprodiInput
+	err := c.ShouldBind(&input)
+	if err != nil {
+		c.HTML(http.StatusOK, "kaprodi_dashboard_index.html", input)
+		return
+	}
 	idParam := c.Param("id")
 
 	id, _ := strconv.Atoi(idParam)
 
-	_, err := h.documentLegalizationService.UpdateDocumentToApprovedByKaprodi(id)
+	session := sessions.Default(c)
+	currentNameKaprodi := session.Get("nameKaprodi")
+
+	input.ID = id
+	input.ApprovedByKaprodi = fmt.Sprintf("%v (%v)", currentNameKaprodi.(string), time.Now().Format("01/02/2006"))
+
+	_, err = h.documentLegalizationService.UpdateDocumentToApprovedByKaprodi(input)
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return

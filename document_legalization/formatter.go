@@ -7,43 +7,43 @@ import (
 )
 
 type DataDocumentLegalizationFormatter struct {
-	ID                                 int
-	UserID                             int
-	SubjectID                          int
-	Email                              string
-	FileNameDocument                   string
-	Status                             string
-	Signature                          string
-	CreatedAt                          time.Time
-	UpdatedAt                          time.Time
-	CreatedAtString                    string
-	UpdatedAtString                    string
-	ApprovedByKaryawanAkademikAtString string
-	ApprovedByKaprodiAtString          string
-	SignedByWadekAtString              string
-	Subject                            subject.Subject
-	User                               user.User
-	No                                 int
+	ID                 int
+	UserID             int
+	SubjectID          int
+	Email              string
+	FileNameDocument   string
+	Status             string
+	Signature          string
+	CreatedAt          time.Time
+	UpdatedAt          time.Time
+	CreatedAtString    string
+	UpdatedAtString    string
+	ApprovedByKaryawan string
+	ApprovedByKaprodi  string
+	SignedByWadek      string
+	Subject            subject.Subject
+	User               user.User
+	No                 int
 }
 
 func FormatDataDocumentLegalization(documentLegalization DocumentLegalization) DataDocumentLegalizationFormatter {
 	formatter := DataDocumentLegalizationFormatter{
-		ID:                                 documentLegalization.ID,
-		UserID:                             documentLegalization.UserID,
-		SubjectID:                          documentLegalization.SubjectID,
-		Email:                              documentLegalization.Email,
-		FileNameDocument:                   documentLegalization.FileNameDocument,
-		Signature:                          documentLegalization.Signature,
-		CreatedAt:                          documentLegalization.CreatedAt,
-		UpdatedAt:                          documentLegalization.UpdatedAt,
-		Status:                             documentLegalization.Status,
-		Subject:                            documentLegalization.Subject,
-		User:                               documentLegalization.User,
-		CreatedAtString:                    documentLegalization.CreatedAt.Format("01/02/2006"),
-		UpdatedAtString:                    documentLegalization.UpdatedAt.Format("01/02/2006"),
-		ApprovedByKaryawanAkademikAtString: documentLegalization.ApprovedByKaryawanAkademikAt.Format("01/02/2006"),
-		ApprovedByKaprodiAtString:          documentLegalization.ApprovedByKaprodiAt.Format("01/02/2006"),
-		SignedByWadekAtString:              documentLegalization.SignedByWadekAt.Format("01/02/2006"),
+		ID:                 documentLegalization.ID,
+		UserID:             documentLegalization.UserID,
+		SubjectID:          documentLegalization.SubjectID,
+		Email:              documentLegalization.Email,
+		FileNameDocument:   documentLegalization.FileNameDocument,
+		Signature:          documentLegalization.Signature,
+		CreatedAt:          documentLegalization.CreatedAt,
+		UpdatedAt:          documentLegalization.UpdatedAt,
+		Status:             documentLegalization.Status,
+		Subject:            documentLegalization.Subject,
+		User:               documentLegalization.User,
+		CreatedAtString:    documentLegalization.CreatedAt.Format("01/02/2006"),
+		UpdatedAtString:    documentLegalization.UpdatedAt.Format("01/02/2006"),
+		ApprovedByKaryawan: documentLegalization.ApprovedByKaryawanAkademik,
+		ApprovedByKaprodi:  documentLegalization.ApprovedByKaprodi,
+		SignedByWadek:      documentLegalization.SignedByWadek,
 	}
 
 	return formatter

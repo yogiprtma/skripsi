@@ -3,7 +3,6 @@ package document_legalization
 import (
 	"errors"
 	"project-skripsi/user"
-	"time"
 )
 
 type Service interface {
@@ -19,7 +18,7 @@ type Service interface {
 	UpdateDocumentToApprovedByKaryawan(input FormUpdateDocToApprovedByKaryawanInput) (DocumentLegalization, error)
 	UpdateDocumentToRejected(ID int) (DocumentLegalization, error)
 	GetAllDocForKaprodi(department string) ([]DocumentLegalization, error)
-	UpdateDocumentToApprovedByKaprodi(ID int) (DocumentLegalization, error)
+	UpdateDocumentToApprovedByKaprodi(input FormUpdateDocToApprovedByKaprodiInput) (DocumentLegalization, error)
 	GetAllDocForWadek() ([]DocumentLegalization, error)
 	UpdateDocumentToSignedByWadek(input FormUpdateDocToSignedByWadekInput) (DocumentLegalization, error)
 	GetDocumentLegalizationByUUID(UUID string) (DocumentLegalization, error)
@@ -157,8 +156,7 @@ func (s *service) GetAllDocForKaryawan(firstDepart, secondDepart string) ([]Docu
 }
 
 func (s *service) UpdateDocumentToApprovedByKaryawan(input FormUpdateDocToApprovedByKaryawanInput) (DocumentLegalization, error) {
-	approvedByKaryawanAt := time.Now()
-	updatedDocumentLegalization, err := s.repository.UpdateStatusToApprovedByKaryawan(input.ID, input.FileNameDocument, input.UUID, approvedByKaryawanAt)
+	updatedDocumentLegalization, err := s.repository.UpdateStatusToApprovedByKaryawan(input.ID, input.FileNameDocument, input.UUID, input.ApprovedByKaryawan)
 	if err != nil {
 		return updatedDocumentLegalization, err
 	}
@@ -194,9 +192,8 @@ func (s *service) GetAllDocForKaprodi(department string) ([]DocumentLegalization
 	return documentLegalizations, nil
 }
 
-func (s *service) UpdateDocumentToApprovedByKaprodi(ID int) (DocumentLegalization, error) {
-	approvedAt := time.Now()
-	updatedDocumentLegalization, err := s.repository.UpdateStatusToApprovedByKaprodi(ID, approvedAt)
+func (s *service) UpdateDocumentToApprovedByKaprodi(input FormUpdateDocToApprovedByKaprodiInput) (DocumentLegalization, error) {
+	updatedDocumentLegalization, err := s.repository.UpdateStatusToApprovedByKaprodi(input.ID, input.ApprovedByKaprodi)
 	if err != nil {
 		return updatedDocumentLegalization, err
 	}
@@ -214,7 +211,7 @@ func (s *service) GetAllDocForWadek() ([]DocumentLegalization, error) {
 }
 
 func (s *service) UpdateDocumentToSignedByWadek(input FormUpdateDocToSignedByWadekInput) (DocumentLegalization, error) {
-	updatedDocumentLegalization, err := s.repository.UpdateStatusToSignedByWadek(input.ID, input.MessageDigest, input.Signature, input.SignedAt, input.ExpiredAt)
+	updatedDocumentLegalization, err := s.repository.UpdateStatusToSignedByWadek(input.ID, input.MessageDigest, input.Signature, input.SignedByWadek, input.ExpiredAt)
 	if err != nil {
 		return updatedDocumentLegalization, err
 	}

@@ -6,6 +6,7 @@ import (
 	"project-skripsi/document_legalization"
 	"project-skripsi/helper"
 	"strconv"
+	"time"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -147,9 +148,13 @@ func (h *karyawanDashboardHandler) Update(c *gin.Context) {
 	fileName := fmt.Sprintf("%v.pdf", uuid)
 	c.SaveUploadedFile(file, path)
 
+	session := sessions.Default(c)
+	currentNameKaryawan := session.Get("nameKaryawan")
+
 	input.ID = id
 	input.FileNameDocument = fileName
 	input.UUID = uuid
+	input.ApprovedByKaryawan = fmt.Sprintf("%v (%v)", currentNameKaryawan.(string), time.Now().Format("01/02/2006"))
 
 	_, err = h.documentLegalizationService.UpdateDocumentToApprovedByKaryawan(input)
 	if err != nil {

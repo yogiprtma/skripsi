@@ -129,22 +129,24 @@ func (h *wadekDashboardHandler) Update(c *gin.Context) {
 	expiredAt := time.Now().Add(time.Hour * 24 * 33)
 	expiredAtString := expiredAt.Format("01/02/2006")
 
-	signedAt := time.Now()
+	session := sessions.Default(c)
+	currentNameWadek := session.Get("nameWadek")
+	SignedByWadek := fmt.Sprintf("%v (%v)", currentNameWadek.(string), time.Now().Format("01/02/2006"))
 
 	path := fmt.Sprintf("file_signed/%v.pdf", documentLegalization.UUID)
 
 	contentQRCode := fmt.Sprintf(
 		`
 	Disetujui Oleh :
-	1. Karyawan Akademik (%v)
-	2. Koordinator Prodi Informatika (%v)
+	1. %v
+	2. %v
 
 	Ditandatangani Oleh :
-	Wakil Dekan Bidang Akademik (%v)
+	%v
 
 	Pranala Dokumen :
 	%v/dokumen/%v
-	`, documentLegalization.ApprovedByKaryawanAkademikAt.Format("01/02/2006"), documentLegalization.ApprovedByKaprodiAt.Format("01/02/2006"), documentLegalization.SignedByWadekAt.Format("01/02/2006"), os.Getenv("BASE_URL_SERVER"), documentLegalization.UUID)
+	`, documentLegalization.ApprovedByKaryawanAkademik, documentLegalization.ApprovedByKaprodi, SignedByWadek, os.Getenv("BASE_URL_SERVER"), documentLegalization.UUID)
 
 	wg.Add(1)
 	go func() {
@@ -168,7 +170,7 @@ func (h *wadekDashboardHandler) Update(c *gin.Context) {
 	input.MessageDigest = fmt.Sprintf("%x", msgDigest)
 	input.Signature = generateSignature
 	input.ExpiredAt = expiredAt
-	input.SignedAt = signedAt
+	input.SignedByWadek = SignedByWadek
 
 	_, err = h.documentLegalizationService.UpdateDocumentToSignedByWadek(input)
 	if err != nil {
@@ -176,7 +178,7 @@ func (h *wadekDashboardHandler) Update(c *gin.Context) {
 		return
 	}
 
-	go helper.SendEmailToUserForApproved(documentLegalization.Email, documentLegalization.User.Name, documentLegalization.User.NPM, fmt.Sprintf("%v.pdf", documentLegalization.UUID))
+	// go helper.SendEmailToUserForApproved(documentLegalization.Email, documentLegalization.User.Name, documentLegalization.User.NPM, fmt.Sprintf("%v.pdf", documentLegalization.UUID))
 
 	c.Redirect(http.StatusFound, "/wadek/dashboard")
 }

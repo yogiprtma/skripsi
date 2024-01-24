@@ -66,8 +66,8 @@
                                       <h5></i>Disetujui Oleh</h5>      
                                     </div>	    
                                     <div class="col">
-                                      <input type="text" class="form-control" value="1. Karyawan Akademik ({{ .DocumentLegalization.ApprovedByKaryawanAkademikAtString }})" disabled>
-                                      <input type="text" class="form-control" value="2. Koordinator Prodi {{ .DocumentLegalization.User.Department }} ({{ .DocumentLegalization.ApprovedByKaprodiAtString }})" disabled>
+                                      <input type="text" class="form-control" value="1. {{ .DocumentLegalization.ApprovedByKaryawan }}" disabled>
+                                      <input type="text" class="form-control" value="2. {{ .DocumentLegalization.ApprovedByKaprodi }} - ({{ .DocumentLegalization.User.Department }})" disabled>
                                     </div>	
                                   </div>
                                   <div class="p-3">
@@ -75,8 +75,7 @@
                                       <h5></i>Ditandatangani Oleh</h5>      
                                     </div>	    
                                     <div class="col">
-                                      <input type="text" class="form-control text-center" value="Wakil Dekan Bidang Akademik" disabled>
-                                      <input type="text" class="form-control text-center" value="{{ .DocumentLegalization.SignedByWadekAtString }}" disabled>
+                                      <input type="text" class="form-control text-center" value="{{ .DocumentLegalization.SignedByWadek }} - (Wakil Dekan Bidang Akademik)" disabled>
                                     </div>	
                                   </div>
                                   <div class="p-3">

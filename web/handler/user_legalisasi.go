@@ -3,7 +3,6 @@ package handler
 import (
 	"net/http"
 	"project-skripsi/document_legalization"
-	"project-skripsi/helper"
 	"project-skripsi/subject"
 	"project-skripsi/user"
 
@@ -73,7 +72,7 @@ func (h *userLegalisasiHandler) Create(c *gin.Context) {
 	}
 
 	// _ ganti user untuk kirim email
-	user, err := h.userService.GetUserByID(userID)
+	_, err = h.userService.GetUserByID(userID)
 	if err != nil {
 		c.HTML(http.StatusInternalServerError, "error.html", nil)
 		return
@@ -86,7 +85,7 @@ func (h *userLegalisasiHandler) Create(c *gin.Context) {
 	}
 	// nanti balikkan untuk send email
 
-	go helper.SendEmailToUserForSubmission(input.Email, user.Name, user.NPM)
+	// go helper.SendEmailToUserForSubmission(input.Email, user.Name, user.NPM)
 
 	c.Redirect(http.StatusFound, "/pengajuan-legalisasi")
 }

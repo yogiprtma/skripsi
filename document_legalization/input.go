@@ -35,10 +35,17 @@ type FormUpdateDocumentLegalizationInput struct {
 }
 
 type FormUpdateDocToApprovedByKaryawanInput struct {
-	ID               int
-	UUID             string
-	FileNameDocument string
-	Error            error
+	ID                 int
+	UUID               string
+	FileNameDocument   string
+	ApprovedByKaryawan string
+	Error              error
+}
+
+type FormUpdateDocToApprovedByKaprodiInput struct {
+	ID                int
+	ApprovedByKaprodi string
+	Error             error
 }
 
 type FormFindSignatureDocumentLegalizationInput struct {
@@ -61,7 +68,7 @@ type FormUpdateDocToSignedByWadekInput struct {
 	ID            int
 	MessageDigest string
 	Signature     string
-	SignedAt      time.Time
+	SignedByWadek string
 	ExpiredAt     time.Time
 	Error         error
 }
